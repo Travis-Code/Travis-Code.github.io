@@ -1,7 +1,7 @@
 //created by TRAVIS. H (BOOM)
 
 var game;
-var barrierVehicles = ["barrier","barrier2","barrier3","barrier4","barrier5","barrier6"];
+var barrierVehicles = ["barrier","barrier2","barrier3","barrier4","barrier5","barrier6","barrier7"];
 var trees = ["trees2"];
 var curse = ["HOPE YOU GOT\nINSURANCE","OUCH!", "Doh!", "Whoops,\nMY BAD!", "AHHHH!","Not My fault...","Chee Hee!","MY RIMS!","Outta My Way,\nU Donkey!"];
 var endCurse = ["why u 2 bad"];
@@ -99,6 +99,8 @@ preload.prototype = {
 		game.load.image("wall","assets/sprites/grassTile.png");
 		game.load.image("pileUp","assets/sprites/pileUp.png");
 		game.load.image("ship", "assets/sprites/mainCar.png");
+		game.load.image("barrier7", "assets/sprites/ShitVic.png");
+
 		game.load.image("smoke", "assets/sprites/smoke2.png");
 		game.load.image("Sand", "assets/sprites/Sand.png");
 		game.load.image("barrier", "assets/sprites/greyCar.png");
