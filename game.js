@@ -136,7 +136,7 @@ titleScreen.prototype = {
 			height:420
 		}, 1500, "Linear", true, 0, -1);
 			var nameStyle = {font: "20px Helvetica", fill: "#ffffff", align: "center"}
-			var nametext = game.add.text(game.width/2+200, game.height-150, "PROGRAMMING \n& GRAPHICS \nby Travis.Jorel.H.", nameStyle);
+			var nametext = game.add.text(game.width/2+200, game.height-150, "PROGRAMMED \n& GRAPHICS \nby Travis.Jorel.H.", nameStyle);
 			nametext.anchor.set(0.5);
 			nametext.stroke = '#000000';
 			nametext.strokeThickness = 0;
@@ -215,14 +215,6 @@ playGame.prototype = {
 			rightWallBG.autoScroll(0, 800);
 		//flip rightWalls x axis horizontally using -1.
 			rightWallBG.tileScale.x = -1;
-		var sandLeftWallBG = game.add.tileSprite( -tunnelWidth / 2, 0, game.width / 2, game.height, "Sand");
-			sandLeftWallBG.autoScroll(0, 800);
-		var sandRightWallBG = game.add.tileSprite((game.width + tunnelWidth)/2,0,game.width/2,game.height,"Sand");
-			sandRightWallBG.autoScroll(0, 800);
-		//flip rightWalls x axis horizontally using -1.
-			sandRightWallBG.tileScale.x = -1;
-			sandLeftWallBG.alpha = 0.2;
-			sandRightWallBG.alpha = 0.2;
 
 		var grassLeftWallBG = game.add.tileSprite(-tunnelWidth/2, 0, 160, game.height, "grassB");
 			grassLeftWallBG.tint = tintColor;
