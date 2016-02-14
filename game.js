@@ -445,7 +445,7 @@ playGame.prototype = {
 				explosionSound.play();
 				this.addQuake();
 				var curser = curse[game.rnd.between(0,curse.length-1)];
-				var style = {font: "75px Impact", fill: "#ffffff", align: "center"}
+				var style = {font: "75px helvetica", fill: "#ffffff", align: "center"}
 				var curseText = game.add.text(game.width/2, game.height/2, curser, style);
 				curseText.anchor.set(0.5);
 				curseText.stroke = '#000000';
@@ -609,7 +609,7 @@ winStateScreen.prototype ={
 		var titleBG = game.add.tileSprite(0, 0, game.width, game.height, "backsplash");
 		titleBG.tint = bgColors[game.rnd.between(0,bgColors.length-1)];
 		var closedSign = game.add.image(game.width/2, game.height/2+25, "closedToday");
-		var signStyle = {font: "50px Impact", fill: "#ffffff", align: "center", fontWeight: "bold"}
+		var signStyle = {font: "50px helvetica", fill: "#ffffff", align: "center", fontWeight: "bold"}
 		var closedText = game.add.text(game.width/2, game.height/2-300, "CONGRATULATIONS!\nYOU MADE IT TO WORK \n BUT IT WAS YOUR\nDAY OFF...", signStyle);
 		closedSign.anchor.set(0.5);
 		closedText.anchor.set(0.5);
@@ -682,7 +682,7 @@ gameOverScreen.prototype = {
 		//game.stage.backgroundColor = bgColors[game.rnd.between(0,bgColors.length-1)];
 		var pileUp = game.add.image(game.width.centerX, 400, "pileUp");
 		var title = game.add.image(game.width/2, game.height-760, "ragetitle");
-		var endStyle = {font: "75px Impact", fill: "#ffffff", align: "center"}
+		var endStyle = {font: "75px helvetica", fill: "#ffffff", align: "center"}
 			var endtext = game.add.text(game.width/2, game.height-390, "WRECKED!", endStyle);
 			endtext.stroke = '#000000';
 			endtext.strokeThickness = 8;
