@@ -15,7 +15,7 @@ var shipVerticalSpeed = 15000000;
 //swipeDistance tells us any swipe movement greater than 10 pixels will be
 //considered a swipe.
 var swipeDistance = 10;
-var barrierSpeed = 680;
+var barrierSpeed = 980;
 var barrierGap = 192;
 var shipHealth = 1;
 var barrierIncreaseSpeed = 3.03;
@@ -100,7 +100,6 @@ preload.prototype = {
 		game.load.image("pileUp","assets/sprites/pileUp.png");
 		game.load.image("ship", "assets/sprites/mainCar.png");
 		game.load.image("barrier7", "assets/sprites/ShitVic.png");
-
 		game.load.image("smoke", "assets/sprites/smoke2.png");
 		game.load.image("Sand", "assets/sprites/Sand.png");
 		game.load.image("barrier", "assets/sprites/greyCar.png");
@@ -138,7 +137,7 @@ titleScreen.prototype = {
 			height:420
 		}, 1500, "Linear", true, 0, -1);
 			var nameStyle = {font: "20px Helvetica", fill: "#ffffff", align: "center"}
-			var nametext = game.add.text(game.width/2+200, game.height-150, "PROGRAMMED \n& GRAPHICS \nby Travis.Jorel.H.", nameStyle);
+			var nametext = game.add.text(game.width/2+200, game.height-150, "GRAPHICS &\n PROGRAMMING \nby:Travis.Jorel.H.", nameStyle);
 			nametext.anchor.set(0.5);
 			nametext.stroke = '#000000';
 			nametext.strokeThickness = 0;
@@ -444,7 +443,6 @@ playGame.prototype = {
 				curseText.anchor.set(0.5);
 				curseText.stroke = '#000000';
 				curseText.strokeThickness = 8;
-
 				var carHonk = game.add.audio("honk");
 				carHonk.play();
 				this.ship.destroyed = true;
@@ -603,8 +601,8 @@ winStateScreen.prototype ={
 		var titleBG = game.add.tileSprite(0, 0, game.width, game.height, "backsplash");
 		titleBG.tint = bgColors[game.rnd.between(0,bgColors.length-1)];
 		var closedSign = game.add.image(game.width/2, game.height/2+25, "closedToday");
-		var signStyle = {font: "50px helvetica", fill: "#ffffff", align: "center", fontWeight: "bold"}
-		var closedText = game.add.text(game.width/2, game.height/2-300, "CONGRATULATIONS!\nYOU MADE IT TO WORK \n BUT IT WAS YOUR\nDAY OFF...", signStyle);
+		var signStyle = {font: "40px helvetica", fill: "#ffffff", align: "center", fontWeight: "bold"}
+		var closedText = game.add.text(game.width/2, game.height/2-300, "CONGRATULATIONS!\n you got to work, on time \n but soon after you realize that \nnobody is there, it's a holiday\n today is your day off...", signStyle);
 		closedSign.anchor.set(0.5);
 		closedText.anchor.set(0.5);
 		closedText.stroke = '#000000';
@@ -662,7 +660,7 @@ winStateScreen.prototype ={
 var gameOverScreen = function(game){};
 gameOverScreen.prototype = {
 	create: function(){
-		barrierSpeed = 680;
+		barrierSpeed = 880;
 		shipHealth = 1;
 
 		var titleRoadPic = game.add.tileSprite(0, 0, game.width, game.height, "tunnelbg");
