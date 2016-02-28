@@ -1,32 +1,454 @@
-var game,barrierVehicles="barrier barrier2 barrier3 barrier4 barrier5 barrier6 barrier7".split(" "),trees=["trees2"],curse="HOPE YOU GOT\nINSURANCE;OUCH!;Doh!;Whoops,\nMY BAD!;AHHHH!;Not My fault...;Chee Hee!;MY RIMS!;Outta My Way,\nU Donkey!".split(";"),endCurse=["why u 2 bad"],bgColors=[16762461,8112292,5030873,9659533,8157290,5803123,9193030,2775940,7557180],titleColors=[15820613,16563730,16762461,8112292,5030873,9659533,8157290],tunnelWidth=256,shipHorizonalSpeed=100,shipMoveDelay=0,shipVerticalSpeed=
-15E6,swipeDistance=10,barrierSpeed=980,barrierGap=192,shipHealth=1,barrierIncreaseSpeed=3.03,tunnelBGSpeed=1200;
-Barrier=function(a,b,c){var d=[(a.width-tunnelWidth)/2+30,(a.width+tunnelWidth)/2-30];c=a.rnd.between(0,1);Phaser.Sprite.call(this,a,d[c],-190,barrierVehicles[a.rnd.between(0,barrierVehicles.length-1)]);d=new Phaser.Rectangle(0,0,tunnelWidth/2,170);this.crop(d);a.physics.enable(this,Phaser.Physics.ARCADE);this.anchor.set(c,.5);this.body.velocity.y=b;this.body.immovable=!1;this.placeBarrier=!0;this.collideCar=!1;Barrier.prototype.update=function(){this.placeBarrier&&this.y>barrierGap&&(this.placeBarrier=
-!1,playGame.prototype.addBarrier(this.parent,this.tint));this.y>a.height&&this.destroy()}};Barrier.prototype=Object.create(Phaser.Sprite.prototype);Barrier.prototype.constructor=Barrier;window.onload=function(){game=new Phaser.Game(640,960,Phaser.AUTO,"");game.state.add("Boot",boot);game.state.add("Preload",preload);game.state.add("TitleScreen",titleScreen);game.state.add("PlayGame",playGame);game.state.add("GameOverScreen",gameOverScreen);game.state.add("Win",winStateScreen);game.state.start("Boot")};
-var boot=function(a){};boot.prototype={preload:function(){this.game.load.image("loading","assets/sprites/loading.png")},create:function(){game.scale.pageAlignHorizontally=!0;game.scale.pageAlignVertically=!0;game.scale.scaleMode=Phaser.ScaleManager.SHOW_ALL;console.log("game started");game.state.start("Preload")}};var preload=function(a){};
-preload.prototype={preload:function(){var a=this.add.sprite(game.width/2,game.height/2,"loading");a.anchor.setTo(.5);game.load.setPreloadSprite(a);game.load.image("title","assets/sprites/titleLate4Work.png");game.load.image("barrier6","assets/sprites/motorcycle.png");game.load.image("titleRage","assets/sprites/honoluluRage.png");game.load.image("ragetitle","assets/sprites/roadRageTitle.png");game.load.image("closedToday","assets/sprites/closedToday.png");game.load.image("grassB","assets/sprites/grassB.png");
-game.load.image("railB","assets/sprites/railB.png");game.load.image("playbutton","assets/sprites/playbutton.png");game.load.image("backsplash","assets/sprites/backsplash.png");game.load.image("tunnelbg","assets/sprites/roadSpriteSide.png");game.load.image("wall","assets/sprites/grassTile.png");game.load.image("pileUp","assets/sprites/pileUp.png");game.load.image("ship","assets/sprites/mainCar.png");game.load.image("barrier7","assets/sprites/ShitVic.png");game.load.image("smoke","assets/sprites/smoke2.png");
-game.load.image("Sand","assets/sprites/Sand.png");game.load.image("barrier","assets/sprites/greyCar.png");game.load.image("barrier2","assets/sprites/police.png");game.load.image("barrier3","assets/sprites/fancyCar.png");game.load.image("barrier4","assets/sprites/coolCar.png");game.load.image("barrier5","assets/sprites/orangeCar.png");game.load.audio("bgmusic",["assets/sounds/oldSchoolBG.mp3","assets/sounds/oldSchoolBG.ogg"]);game.load.audio("explosion",["assets/sounds/explosion.mp3","assets/sounds/explosion.ogg"]);
-game.load.audio("carStart",["assets/sounds/carStart.mp3","assets/sounds/carStart.ogg"]);game.load.audio("carStart",["assets/sounds/carStart.mp3","assets/sounds/carStart.ogg"]);game.load.audio("carCrash",["assets/sounds/Crash.mp3","assets/sounds/Crash.ogg"]);game.load.audio("honk",["assets/sounds/honk.mp3","assets/sounds/honk.ogg"]);game.load.audio("screech",["assets/sounds/screech.mp3","assets/sounds/screech.ogg"]);game.load.audio("AstonButton",["assets/sounds/Aston.mp3","assets/sounds/Aston.ogg"])},
-create:function(){game.state.start("TitleScreen")}};var titleScreen=function(a){};
-titleScreen.prototype={create:function(){game.add.tileSprite(0,0,game.width,game.height,"tunnelbg");game.add.image(game.width.centerX,game.height-650,"titleRage");var a=game.add.image(game.width/2,200,"title");a.tint=titleColors[game.rnd.between(0,titleColors.length-1)];a.anchor.set(.5);var a=game.add.tween(a).to({width:420,height:420},1500,"Linear",!0,0,-1),b=game.add.text(game.width/2+200,game.height-150,"GRAPHICS &\n PROGRAMMING \nby:Travis.Jorel.H.",{font:"20px Helvetica",fill:"#ffffff",align:"center"});
-b.anchor.set(.5);b.stroke="#000000";b.strokeThickness=0;a.yoyo(!0);this.startCar=game.add.audio("carStart");this.startCar.play();a=game.add.button(game.width/2,game.height-150,"playbutton",this.startGame,this);a.anchor.set(.5);a.tint=16563730;game.add.tween(a).to({width:220,height:220},1500,"Linear",!0,0,-1).yoyo(!0)},startGame:function(){game.add.audio("AstonButton").play();game.time.events.add(.4*Phaser.Timer.SECOND,function(){console.log("it werks");this.fade("PlayGame")},this)},fade:function(a){var b=
-this.game.add.graphics(0,0);b.beginFill(this.fadeColor,1);b.drawRect(0,0,this.game.width,this.game.height);b.alpha=0;b.endFill();this.nextState=a;s=this.game.add.tween(b);s.to({alpha:1},500,null);s.onComplete.add(this.changeState,this);s.start()},changeState:function(){this.game.state.start(this.nextState);this.fadeOut()},fadeOut:function(){var a=this.game.add.graphics(0,0);a.beginFill(this.fadeColor,1);a.drawRect(0,0,this.game.width,this.game.height);a.alpha=1;a.endFill();s=this.game.add.tween(a);
-s.to({alpha:0},600,null);s.start()}};var playGame=function(a){};
-playGame.prototype={create:function(){this.bgMusic=game.add.audio("bgmusic");this.bgMusic.loopFull(1);tintColor=bgColors[game.rnd.between(0,bgColors.length-1)];game.add.tileSprite(0,0,game.width,game.height,"tunnelbg").autoScroll(0,tunnelBGSpeed+=200);var a=game.add.tileSprite(-tunnelWidth/2,0,game.width/2,game.height,"wall");a.tint=tintColor;a.autoScroll(0,800);a=game.add.tileSprite((game.width+tunnelWidth)/2,0,game.width/2,game.height,"wall");a.tint=tintColor;a.autoScroll(0,800);a.tileScale.x=-1;
-a=game.add.tileSprite(-tunnelWidth/2,0,160,game.height,"grassB");a.tint=tintColor;a.autoScroll(0,500);var b=game.add.tileSprite(game.width-60,0,60,game.height,"grassB");b.tint=tintColor;b.autoScroll(0,500);b.tileScale.x=-1;b.alpha=1;a.alpha=1;game.add.tileSprite(tunnelWidth-80,0,15,game.height,"railB").autoScroll(0,500);a=game.add.tileSprite(game.width-200,0,15,game.height,"railB");a.autoScroll(0,500);a.tileScale.x=-1;this.shipPositions=[(game.width-tunnelWidth)/2+52,(game.width+tunnelWidth)/2-52];
-this.ship=game.add.sprite(this.shipPositions[0],860,"ship");this.ship.side=0;this.ship.destroyed=!1;this.ship.canMove=!0;this.ship.canSwipe=!1;this.ship.anchor.set(.5);this.game.physics.enable(this.ship,Phaser.Physics.ARCADE);game.input.onDown.add(this.moveShip,this);game.input.onUp.add(function(){this.ship.canSwipe=!0},this);this.smokeEmitter=game.add.emitter(this.ship.x+20,this.ship.y+30,20);this.smokeEmitter.makeParticles("smoke");this.smokeEmitter.setXSpeed(-15,15);this.smokeEmitter.setYSpeed(50,
-150);this.smokeEmitter.setAlpha(.5,1);this.smokeEmitter.start(!1,1E3,40);this.verticalTween=game.add.tween(this.ship).to({y:-200},shipVerticalSpeed,Phaser.Easing.Linear.None,!0);this.barrierGroup=game.add.group();a=new Barrier(game,barrierSpeed,tintColor,this.ship);game.add.existing(a);this.barrierGroup.add(a);this.counter=25;this.text=0;this.text=game.add.text(game.width/2,game.height-700,"READY GO!",{font:"34px helvetica",fill:"#FFDC00",align:"center"});this.text.anchor.setTo(.5);game.time.events.loop(Phaser.Timer.SECOND,
-this.updateCounter,this);game.world.setBounds(-50,-50,game.world.width+100,game.world.height+100);game.world.camera.position.set(0);this.countDownTimer=game.time.events.loop(25*Phaser.Timer.SECOND,this.winCounter,this)},winCounter:function(){this.fade("Win");this.bgMusic.stop()},updateCounter:function(){this.counter--;this.text.setText("Get to Work in \n"+this.counter+" Seconds!")},moveShip:function(){this.ship.canSwipe=!0;this.ship.canMove&&3>=shipHealth&&(game.add.audio("screech").play(),this.ship.canMove=
-!1,this.ship.side=1-this.ship.side,this.ship.angle=1==this.ship.side?30:-30,game.add.tween(this.ship).to({x:this.shipPositions[this.ship.side]},shipHorizonalSpeed,Phaser.Easing.Linear.None,!0).onComplete.add(function(){game.time.events.add(shipMoveDelay,function(){this.ship.canMove=!0;this.ship.angle=0},this)},this))},update:function(){this.smokeEmitter.x=this.ship.x+9;this.smokeEmitter.y=this.ship.y+60;this.ship.destroyed||game.physics.arcade.collide(this.ship,this.barrierGroup,null,function(a,b){game.time.events.remove(this.countDownTimer);
-this.counter=25;game.add.tween(b).to({x:b.x+game.rnd.between(-100,100),y:b.y+game.rnd.between(-500,800),rotation:5},1E3,Phaser.Easing.Linear.None,!0).onComplete.add(function(){var a=game.add.emitter(b.x,b.y,200);a.makeParticles("smoke");a.setAlpha(.5,1);a.minParticleScale=.5;a.maxParticleScale=2;a.start(!0,2E3,null,200);game.add.audio("carCrash").play();b.destroy()},this);var c=game.add.audio("explosion");c.play();this.addQuake();var d=curse[game.rnd.between(0,curse.length-1)],d=game.add.text(game.width/
-2,game.height/2,d,{font:"75px helvetica",fill:"#ffffff",align:"center"});d.anchor.set(.5);d.stroke="#000000";d.strokeThickness=8;game.add.audio("honk").play();this.ship.destroyed=!0;this.smokeEmitter.destroy();game.add.tween(this.ship).to({x:this.ship.x+game.rnd.between(-100,100),y:this.ship.y+game.rnd.between(-500,800),rotation:20},1E3,Phaser.Easing.Linear.None,!0).onComplete.add(function(){this.bgMusic.stop();c.play();var a=game.add.emitter(this.ship.x,this.ship.y,200);a.makeParticles("smoke");
-a.setAlpha(.5,1);a.minParticleScale=.5;a.maxParticleScale=2;a.start(!0,2E3,null,200);game.add.audio("carCrash").play();this.ship.destroy();game.time.events.add(2*Phaser.Timer.SECOND,function(){this.ship.destroy();this.fade("GameOverScreen")},this)},this)},this)},fade:function(a){var b=this.game.add.graphics(0,0);b.beginFill(this.fadeColor,1);b.drawRect(0,0,this.game.width,this.game.height);b.alpha=0;b.endFill();this.nextState=a;s=this.game.add.tween(b);s.to({alpha:1},500,null);s.onComplete.add(this.changeState,
-this);s.start()},changeState:function(){this.game.state.start(this.nextState);this.fadeOut()},fadeOut:function(){var a=this.game.add.graphics(0,0);a.beginFill(this.fadeColor,1);a.drawRect(0,0,this.game.width,this.game.height);a.alpha=1;a.endFill();s=this.game.add.tween(a);s.to({alpha:0},600,null);s.start()},restartShip:function(){if(!this.ship.destroyed&&1==this.ship.alpha){barrierSpeed*=barrierIncreaseSpeed;for(var a=0;a<this.barrierGroup.length;a++)this.barrierGroup.getChildAt(a).body.velocity.y=
-barrierSpeed;3E3<=barrierSpeed&&(barrierSpeed=1090)}this.ship.canSwipe=!1;this.verticalTween.stop();this.verticalTween=game.add.tween(this.ship).to({y:860},100,Phaser.Easing.Linear.None,!0);this.verticalTween.onComplete.add(function(){this.verticalTween=game.add.tween(this.ship).to({y:0},shipVerticalSpeed,Phaser.Easing.Linear.None,!0)},this)},addBarrier:function(a,b){var c=new Barrier(game,barrierSpeed,b);game.add.existing(c);a.add(c)},addQuake:function(){var a={x:game.camera.x-10},b=Phaser.Easing.Bounce.InOut;
-game.add.tween(game.camera).to(a,100,b,!1,0,4,!0).start()},addCarShake:function(){var a={x:ship.x-10},b=Phaser.Easing.Bounce.InOut;game.add.tween(ship.x).to(a,100,b,!1,0,4,!0).start()}};var winStateScreen=function(a){};
-winStateScreen.prototype={create:function(){console.log("YOU WIN!");game.add.tileSprite(0,0,game.width,game.height,"backsplash").tint=bgColors[game.rnd.between(0,bgColors.length-1)];var a=game.add.image(game.width/2,game.height/2+25,"closedToday"),b=game.add.text(game.width/2,game.height/2-300,"CONGRATULATIONS!\n you got to work, on time \n but soon after you realize that \nnobody is there, it's a holiday\n today is your day off...",{font:"40px helvetica",fill:"#ffffff",align:"center",fontWeight:"bold"});
-a.anchor.set(.5);b.anchor.set(.5);b.stroke="#000000";b.strokeThickness=6;a=game.add.button(game.width/2,game.height-150,"playbutton",this.startGame,this);a.anchor.set(.5);game.add.tween(a).to({width:220,height:220},1500,"Linear",!0,0,-1).yoyo(!0);game.world.camera.position.set(0)},startGame:function(){game.add.audio("AstonButton").play();this.fade("TitleScreen")},fade:function(a){var b=this.game.add.graphics(0,0);b.beginFill(this.fadeColor,1);b.drawRect(0,0,this.game.width,this.game.height);b.alpha=
-0;b.endFill();this.nextState=a;s=this.game.add.tween(b);s.to({alpha:1},500,null);s.onComplete.add(this.changeState,this);s.start()},changeState:function(){this.game.state.start(this.nextState);this.fadeOut()},fadeOut:function(){var a=this.game.add.graphics(0,0);a.beginFill(this.fadeColor,1);a.drawRect(0,0,this.game.width,this.game.height);a.alpha=1;a.endFill();s=this.game.add.tween(a);s.to({alpha:0},600,null);s.start()}};var gameOverScreen=function(a){};
-gameOverScreen.prototype={create:function(){barrierSpeed=880;shipHealth=1;game.add.tileSprite(0,0,game.width,game.height,"tunnelbg");game.add.image(game.width.centerX,400,"pileUp");var a=game.add.image(game.width/2,game.height-760,"ragetitle"),b=game.add.text(game.width/2,game.height-390,"WRECKED!",{font:"75px helvetica",fill:"#ffffff",align:"center"});b.stroke="#000000";b.strokeThickness=8;b.anchor.set(.5);a.tint=titleColors[game.rnd.between(0,titleColors.length-1)];a.anchor.set(.5);game.add.tween(a).to({width:420,
-height:420},1500,"Linear",!0,0,-1).yoyo(!0);console.log("game over!");a=game.add.button(game.width/2,game.height-150,"playbutton",this.startGame,this);a.anchor.set(.5);a.tint=16563730;game.add.tween(a).to({width:220,height:220},1500,"Linear",!0,0,-1).yoyo(!0);game.world.camera.position.set(0)},startGame:function(){game.add.audio("honk").play();this.fade("PlayGame")},fade:function(a){var b=this.game.add.graphics(0,0);b.beginFill(this.fadeColor,1);b.drawRect(0,0,this.game.width,this.game.height);b.alpha=
-0;b.endFill();this.nextState=a;s=this.game.add.tween(b);s.to({alpha:1},500,null);s.onComplete.add(this.changeState,this);s.start()},changeState:function(){this.game.state.start(this.nextState);this.fadeOut()},fadeOut:function(){var a=this.game.add.graphics(0,0);a.beginFill(this.fadeColor,1);a.drawRect(0,0,this.game.width,this.game.height);a.alpha=1;a.endFill();s=this.game.add.tween(a);s.to({alpha:0},600,null);s.start()}};
+var Parkour = Parkour || {};
+
+Parkour.Enemy = function(game, x, y, key, velocity){
+    Phaser.Sprite.call(this, game, x, y, key);
+    this.game = game;
+    this.anchor.setTo(0.5);
+
+    //give a random speed if none given.
+    if(velocity === undefined){
+        velocity = (40+Math.random()*20) * (Math.random()<0.5 ? 1:-1);
+    }
+
+    this.game.physics.arcade.enableBody(this);
+    this.body.collideWorldBounds = true;
+    this.body.bounce.set(1,0);
+    this.body.velocity.x = velocity;
+};
+
+Parkour.Enemy.prototype = Object.create(Phaser.Sprite.prototype);
+Parkour.Enemy.prototype.constructor = Parkour.Enemy;
+
+Parkour.Enemy.prototype.update = function(){
+
+    var direction;
+    if(this.body.velocity.x > 0){
+        this.scale.setTo(-1,1);
+        direction = 1;
+  }
+    else {
+        this.scale.setTo(1, 1);
+        direction = -1;
+  }
+
+    if(this.body.x >= 600){
+        this.scale.setTo(1,1);
+        direction -1;
+        this.body.velocity.x *= -1;
+    }
+    else if(this.body.x <= 90){
+        direction = 1;
+        this.scale.setTo(-1,1);
+        this.body.velocity.x = this.body.velocity.x += 2;
+    }
+};
+
+Parkour.GameState = {
+
+    init: function() {
+        //constants
+        this.RUNNING_SPEED = 380;
+        this.JUMPING_SPEED = 500;
+        this.BOUNCING_SPEED = 150;
+        //gravity
+        this.game.physics.arcade.gravity.y = 1000;
+
+        this.game.stage.backgroundColor = "#4488AA";
+
+        //set the size of the world
+        this.game.world.setBounds(0, 0, 7600, 600);
+
+        //cursor keys to move the player
+        this.cursors = this.game.input.keyboard.createCursorKeys();
+    },
+    create: function() {
+        this.playerAlive = true;
+        this.playerHasHat = false;
+        this.game.bgMusic = this.game.add.audio("coolHipHop");
+        this.game.bgMusic.loopFull(1);
+
+        //load current level method.
+        this.loadLevel();
+        //this.createOnscreenControls();
+        this.createOnscreenControls();
+
+        //test Monster class method.
+        //test monster class.
+        /*var monster1 = new Parkour.Monster();
+        var monster2 = new Parkour.Monster();
+        console.log(monster1.energy);
+        console.log(monster2.energy);*/
+    },
+
+    update: function() {
+
+        this.player.body.velocity.x = 0;
+
+        paralax2.x = this.game.camera.x * 0.15;
+        paralax2.y = this.game.camera.y * 0.1 + 240;
+        paralax1.x = this.game.camera.x * 0.2;
+        paralax1.y = this.game.camera.y * 0.2 - 300; //move it down a few pixels to account for the missing pixels when moving with camera
+
+        //set up collisions for ground and platforms.
+        this.game.physics.arcade.collide(this.player, this.grounds);
+        this.game.physics.arcade.collide(this.player, this.boxy);
+        this.game.physics.arcade.collide(this.boxy, this.grounds);
+        this.game.physics.arcade.collide(this.boxy, this.boxy);
+        this.game.physics.arcade.collide(this.enemies, this.grounds);
+        //this.game.physics.arcade.collide(this.waters, this.boxy);
+        this.game.physics.arcade.collide(this.player, this.pipeWarp);
+        this.game.physics.arcade.collide(this.player, this.platforms);
+        this.game.physics.arcade.collide(this.player, this.metalPlatforms);
+        this.game.physics.arcade.collide(this.player, this.box);
+        this.game.physics.arcade.collide(this.player, this.wood);
+        this.game.physics.arcade.collide(this.player, this.fires);
+        this.game.physics.arcade.collide(this.box, this.grounds);
+        this.game.physics.arcade.overlap(this.player, this.hat);
+        this.game.physics.arcade.overlap(this.player, this.godzilla);
+        this.game.physics.arcade.overlap(this.pipeWarp, this.godzilla);
+        this.game.physics.arcade.collide(this.fires, this.grounds);
+
+        if (this.playerAlive) {
+            this.game.physics.arcade.overlap(this.player, this.fires, null, function(p, f) {
+                //this.playerAlive = false;
+                this.game.bgMusic.stop();
+                console.log('burned by fire!');
+                //Parkour.game.state.start('Game');
+            }, this);
+        }
+
+        if (this.playerAlive) {
+            this.game.physics.arcade.overlap(this.player, this.waters, null, function(p, w) {
+                this.playerAlive = false;
+                this.game.bgMusic.stop();
+                console.log('auch!');
+                Parkour.game.state.start('Game');
+            }, this);
+        }
+
+        if (this.playerAlive) {
+            this.game.physics.arcade.overlap(this.player, this.hat, null, function(p, h) {
+            this.game.bgMusic.stop();
+            var titlePicTween = this.game.add.tween("pipeWarp").to({
+                width:460,
+                height:191
+            }, 500, "Linear", true, 0, -1);
+            //yoyo method gives yoyo effect plays forward then reverses if set to true.
+            //if yoyo method is set to false it will repeat without reversing.
+            titlePicTween.yoyo(true);
+            console.log('got the hat!');
+            this.hat.destroy();
+            this.loadGodzilla();
+            //Parkour.game.state.start('TitleScreen');
+            }, this);
+        }
+
+        if (this.playerAlive) {
+            this.game.physics.arcade.overlap(this.player, this.godzilla, null, function(p, g) {
+                this.game.bgMusic.stop();
+                console.log('you got eaten by godzilla!');
+                this.godzilla.body.velocity.y = this.levelData.godzillaSpeed;
+                //Parkour.game.state.start('Game');
+                //this.godzilla.destroy();
+                //Parkour.game.state.start('TitleScreen');
+            }, this);
+        }
+
+        //collision between player and enemies
+        this.game.physics.arcade.collide(this.player, this.enemies, this.hitEnemy, null, this);
+
+        //player climbing ladder
+        this.game.physics.arcade.overlap(this.player, this.ladder, null, function(p, l) {
+            this.player.body.velocity.y = -this.JUMPING_SPEED;
+        }, this);
+
+        if (this.cursors.left.isDown || this.player.customParams.isMovingLeft) {
+            this.player.body.velocity.x = -this.RUNNING_SPEED;
+            this.player.scale.setTo(-1, 1);
+            this.player.play("player");
+        } else if (this.cursors.right.isDown || this.player.customParams.isMovingRight) {
+            this.player.body.velocity.x = this.RUNNING_SPEED;
+            this.player.scale.setTo(1, 1);
+            this.player.play("player");
+        } else {
+            this.player.animations.stop();
+            this.player.frame = 5;
+        }
+
+        if ((this.cursors.up.isDown || this.player.customParams.mustJump) && (this.player.body.blocked.down || this.player.body.touching.down)) {
+            this.player.body.velocity.y = -this.JUMPING_SPEED;
+            this.player.customParams.mustJump = false;
+            var jumper = this.game.add.audio("jumpPark");
+            var jump = this.game.add.tween(this.player).to({
+                //x: this.player.x + this.game.rnd.between(100, 200),
+                //y: this.player.y + this.game.rnd.between(-500, 800),
+                rotation: 6.3
+            }, 1000, Phaser.Easing.Linear.None, true);
+            jumper.play();
+        }
+    },
+
+    loadGodzilla :function(){
+    //create godzilla.
+        this.godzilla = this.add.sprite(800, this.game.height / 2 - 120, 'godzilla');
+        var yummy = this.godzilla.animations.add("yummy", [0,1], 4, true);
+        this.godzilla.play("yummy");
+        this.game.physics.arcade.enable(this.godzilla);
+        this.godzilla.body.velocity.x = this.levelData.godzillaSpeed;
+        this.godzilla.immovable = true;
+        //this.godzilla.body.moves = false;
+        this.godzilla.body.allowGravity = false;
+        console.log("GODZILLA IS COMING!");
+        if(this.godzilla.body.y > this.game.height){
+            this.godzilla.destroy();
+            console.log("godzilla is dead");
+        } 
+
+         this.game.physics.arcade.overlap(this.godzilla, this.pipeWarp, null, function(g, p) {
+            this.pipeWarp.body.immovable = false;
+            this.pipeWarp.destroy();
+        },this);
+    },
+
+
+    hitEnemy: function(player, enemy){
+        if(enemy.body.touching.up){
+            //enemy.kill();
+            player.body.velocity.y = -this.BOUNCING_SPEED;
+        }
+        else {
+            enemy.body.velocity.y = -this.BOUNCING_SPEED;
+            enemy.body.velocity.x =+ this.BOUNCING_SPEED;
+        }
+    },
+
+    loadLevel: function(){
+
+        //parse json file
+        this.levelData = JSON.parse(this.game.cache.getText("level"));
+
+        paralax1 = this.game.add.tileSprite(0, 800, 3300, 816, 'clouds');
+        paralax2 = this.game.add.tileSprite(0, 400, 4300, 816, 'backgroundCity');
+
+        //create group for fire and enable physics
+        this.fires = this.add.group();
+        this.fires.enableBody = true;
+
+        var fire;
+        this.levelData.fireData.forEach(function(element){
+            fire = this.fires.create(element.x, element.y, "fire");
+            fire.animations.add("fire",[0, 1], 4, true);
+            fire.play("fire");
+        }, this);
+
+        this.fires.setAll("body.allowGravity", false);
+        this.fires.setAll("body.immovable", true);
+
+        //create group for ground and enable physics body on all elements.
+        this.grounds = this.add.group();
+        this.grounds.enableBody = true;
+
+        //loop that cycles thru each element and adds each ground to a x,y location.
+        this.levelData.floorData.forEach(function(element) {
+            this.grounds.create(element.x, this.game.height / 2 + element.y, "ground");
+        }, this);
+
+        //set grounds properties immovable and no gravity.
+        this.grounds.setAll("body.immovable", true);
+        this.grounds.setAll("body.allowGravity", false);
+
+        //make a clouds group and enable physics on all elements.
+        this.clouds = this.add.group();
+        this.clouds.enableBody = true;
+
+        //loop that cycles thru each element and adds each cloud to a x,y location.
+        this.levelData.cloudData.forEach(function(element) {
+            this.clouds.create(element.x, element.y, "cloud");
+        }, this);
+
+        //set clouds properties immovable and no gravity.
+        this.clouds.setAll("body.immovable", true);
+        this.clouds.setAll("body.allowGravity", false);
+
+        //add ladder
+        this.ladder = this.add.sprite(1300, this.game.height / 2 + 100, "ladder");
+        this.ladder.anchor.setTo(0.5);
+        this.game.physics.arcade.enable(this.ladder);
+        this.ladder.body.allowGravity = false;
+        this.ladder.body.immovable = true;
+
+        this.metalPlatforms = this.add.group();
+        this.metalPlatforms.enableBody = true;
+
+        this.levelData.metalPlatformData.forEach(function(element){
+            this.metalPlatforms.create(element.x, element.y, "metalPlatform");
+        },this);
+        
+        this.metalPlatforms.setAll("body.immovable", true);
+        this.metalPlatforms.setAll("body.allowGravity", false);
+
+        //make box group and enable physics.
+        this.boxy = this.add.group();
+        this.boxy.enableBody = true;
+
+        //loop that cycles thru each element and adds a box to a x,y location.
+        this.levelData.boxData.forEach(function(element){
+            this.boxy.create(element.x, this.game.height/2 + element.y, "boxTwo");
+        },this);
+
+        this.boxy.setAll("body.immovable", false);
+        this.boxy.setAll("body.allowGravity", true);
+
+        //make wood group and enable physics on it.
+        this.wood = this.add.group();
+        this.wood.enableBody = true;
+
+        //loop that cycles thru each element and adds each wood to a x,y location.
+        this.levelData.woodData.forEach(function(element) {
+            this.wood.create(element.x, this.game.height / 2 + element.y, "wood");
+        }, this);
+
+        //set wood properties and no gravity.
+        this.wood.setAll("body.immovable", false);
+        this.wood.setAll("body.allowGravity", false);
+
+        //make waters group and enable physics on it.
+        this.waters = this.add.group();
+        this.waters.enableBody = true;
+        this.waters.tint = '#000000';
+
+        //loop that cycles thru each element and adds each cloud to a x,y location.
+        this.levelData.waterData.forEach(function(element) {
+            this.waters.create(element.x, this.game.height / 2 + element.y, "water");
+        }, this);
+
+        //set water properties and no gravity.
+        this.waters.setAll("body.immovable", true);
+        this.waters.setAll("body.allowGravity", false);
+
+        //add danger sign to the game.
+        this.danger = this.add.sprite(1600, this.game.height / 2 - 120, "danger");
+
+        //create starting box.
+        this.box = this.add.sprite(10, this.game.height / 2 + 200, "box");
+        this.game.physics.arcade.enable(this.box);
+        this.box.body.allowGravity = false;
+        this.box.immovable = true;
+        this.box.body.moves = false;
+
+        //create player.
+        this.player = this.add.sprite(40, this.game.height / 2 - 40, 'player', 5);
+        this.player.anchor.setTo(0.5);
+        this.player.animations.add("player", [0, 1, 2, 3, 4, 5], 7, true);
+        this.player.animations.add("playerJump", [6, 7], 7, true);
+
+        this.enemies = this.add.group();
+        var sampleEnemy = new Parkour.Enemy(this.game, 200, this.game.height /2 +150, "cat", undefined);
+        sampleEnemy.animations.add("catWalk",[0, 1], 4, true);
+        sampleEnemy.play("catWalk");
+        this.enemies.add(sampleEnemy);
+
+        var sampleEnemy2 = new Parkour.Enemy(this.game, 400, this.game.height /2 +150, "cat", undefined);
+        sampleEnemy2.animations.add("catWalk", [0,1], 4, true);
+        sampleEnemy2.play("catWalk");
+        this.enemies.add(sampleEnemy2);
+
+        //create hat with throbbing tween
+        this.hat = this.add.sprite(2200, this.game.height / 2 - 50, "marioHat");
+        this.hat.anchor.set(0.5);
+        this.game.physics.arcade.enable(this.hat);
+        this.hat.body.allowGravity = false;
+        this.hat.body.immovable = true;
+
+        //tween(target).to(properties, ease, autoStart, delay, repeat)
+        var hatTween = this.game.add.tween(this.hat).to({
+            width: 100,
+            height: 60
+        }, 1500, "Linear", true, 0, -1);
+        //yoyo method gives yoyo effect plays forward then reverses if set to true.
+        //if yoyo method is set to false it will repeat without reversing.
+        hatTween.yoyo(true);
+
+        this.pipeWarp = this.add.sprite(2200, this.game.height / 2 + 100, "pipeWarp");
+        this.game.physics.arcade.enable(this.pipeWarp);
+        this.pipeWarp.body.allowGravity = false;
+        this.pipeWarp.body.immovable = true;
+        this.pipeWarp.body.moves = false;
+
+        // 0 is the first frame in the array, then 1,2,1, 6 refers to the fps, true means forever
+        //this.player.animations.add('playerWalking', [0, 1, 2, 1], 6, true);
+
+        this.game.physics.arcade.enable(this.player);
+
+        //create a custom object for the player controls.
+        this.player.customParams = {};
+        this.player.body.collideWorldBounds = true;
+
+        //this.wood = this.add.sprite(10,0,"wood");
+
+        //follow player with the camera.
+        this.game.camera.follow(this.player);
+    },
+
+    createOnscreenControls: function() {
+        this.leftArrow = this.add.button(20, this.game.height - 60, 'arrowButton');
+        this.rightArrow = this.add.button(180, this.game.height - 60, 'arrowButton');
+        this.rightArrow.scale.x = -1;
+        this.actionButton = this.add.button(this.game.width - 100, this.game.height - 60, 'actionButton');
+
+        this.leftArrow.alpha = 0.5;
+        this.rightArrow.alpha = 0.5;
+        this.actionButton.alpha = 1;
+
+        this.leftArrow.fixedToCamera = true;
+        this.rightArrow.fixedToCamera = true;
+        this.actionButton.fixedToCamera = true;
+
+        this.actionButton.events.onInputUp.add(function() {
+            this.player.customParams.mustJump = false;
+        }, this);
+
+        //jump
+        this.actionButton.events.onInputDown.add(function() {
+            this.player.customParams.mustJump = true;
+        }, this);
+
+        this.actionButton.events.onInputUp.add(function() {
+            this.player.customParams.mustJump = false;
+        }, this);
+
+        //left
+        this.leftArrow.events.onInputDown.add(function() {
+            this.player.customParams.isMovingLeft = true;
+        }, this);
+
+        this.leftArrow.events.onInputUp.add(function() {
+            this.player.customParams.isMovingLeft = false;
+        }, this);
+
+        this.leftArrow.events.onInputOver.add(function() {
+            this.player.customParams.isMovingLeft = true;
+        }, this);
+
+        this.leftArrow.events.onInputOut.add(function() {
+            this.player.customParams.isMovingLeft = false;
+        }, this);
+
+        //right
+        this.rightArrow.events.onInputDown.add(function() {
+            this.player.customParams.isMovingRight = true;
+        }, this);
+
+        this.rightArrow.events.onInputUp.add(function() {
+            this.player.customParams.isMovingRight = false;
+        }, this);
+
+        this.rightArrow.events.onInputOver.add(function() {
+            this.player.customParams.isMovingRight = true;
+        }, this);
+
+        this.rightArrow.events.onInputOut.add(function() {
+            this.player.customParams.isMovingRight = false;
+        }, this);
+    }
+};
