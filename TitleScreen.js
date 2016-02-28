@@ -26,7 +26,7 @@ init: function() {
 
         //this.game.bgMusic = this.game.add.audio("coolHipHop");
         //this.game.bgMusic.stop();
-		var playButton = this.game.add.button(this.game.width/2, this.game.height-150,"metalPlatform", this.startGame, this);
+		var playButton = this.game.add.button(this.game.width/2, this.game.height-150,"playButton", this.startGame, this);
 		playButton.anchor.set(0.5);
 		//playButton.tint = 0xFCBE12;
 		//tween(target).to(properties, ease, autoStart, delay, repeat)
