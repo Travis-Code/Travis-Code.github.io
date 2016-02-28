@@ -21,12 +21,9 @@ init: function() {
 		//if yoyo method is set to false it will repeat without reversing.
 	titlePicTween.yoyo(true);*/
 
-
-
-
         //this.game.bgMusic = this.game.add.audio("coolHipHop");
         //this.game.bgMusic.stop();
-		var playButton = this.game.add.button(this.game.width/2, this.game.height-150,"playButton", this.startGame, this);
+		var playButton = this.game.add.button(this.game.width/2, this.game.height-150,"danger", this.startGame, this);
 		playButton.anchor.set(0.5);
 		//playButton.tint = 0xFCBE12;
 		//tween(target).to(properties, ease, autoStart, delay, repeat)
@@ -40,17 +37,12 @@ init: function() {
     },
 
     startGame: function(){
-				var jump = this.game.add.audio("jumpPark");
-				jump.play();
-				this.game.time.events.add(Phaser.Timer.SECOND * 0.4, function(){
-					console.log("it werks");
+		var jump = this.game.add.audio("jumpPark");
+		jump.play();
+		this.game.time.events.add(Phaser.Timer.SECOND * 0.4, function(){
+			console.log("it werks");
 			this.state.start("Game");
-
-
-					//this.fade("PlayGame");
-				}, this);
-		
+			//this.fade("PlayGame");
+		}, this);
 	},
-
-
 };
