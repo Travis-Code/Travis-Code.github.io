@@ -34,16 +34,11 @@ Parkour.GameState = {
         this.meow = this.game.add.audio("meow");
         this.cheer = this.game.add.audio("cheer");
         this.boing = this.game.add.audio("boing");
-
-
         //load current level method.
         this.loadLevel();
 
         //this.createOnscreenControls();
         this.createOnscreenControls();
-
-
-
     },
 
     update: function() {
