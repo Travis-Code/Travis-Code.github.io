@@ -9,12 +9,12 @@ Parkour.BootState ={
 		// this.scale.pageAlignHorizontally = true;
 		// this.scale.pageAlignVertically = true;
 		//initialize the arcade physics system
-var resizeGame = this._fitScreen = function() {
-    this.scale.pageAlignVertically = true;
-    this.scale.pageAlignHorizontally = true;
-    this.scale.setShowAll();
-    this.scale.refresh();
-};
+		this._fitScreen = function() {
+	    this.scale.pageAlignVertically = true;
+	    this.scale.pageAlignHorizontally = true;
+	    this.scale.setShowAll();
+	    this.scale.refresh();
+	};
 
 
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
