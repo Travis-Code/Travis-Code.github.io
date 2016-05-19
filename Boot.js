@@ -4,11 +4,19 @@ var Parkour = Parkour || {};
 Parkour.BootState ={
 	init: function(){
 		this.game.stage.backgroundColor = "#fff";
-		this.game.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-		// this.game.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-		this.scale.pageAlignHorizontally = true;
-		this.scale.pageAlignVertically = true;
+		// this.game.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		this.game.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		// this.scale.pageAlignHorizontally = true;
+		// this.scale.pageAlignVertically = true;
 		//initialize the arcade physics system
+var resizeGame = this._fitScreen = function() {
+    game.scale.pageAlignVertically = true;
+    game.scale.pageAlignHorizontally = true;
+    game.scale.setShowAll();
+    game.scale.refresh();
+};
+
+
 		this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	},
