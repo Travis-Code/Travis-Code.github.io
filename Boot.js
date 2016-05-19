@@ -4,7 +4,8 @@ var Parkour = Parkour || {};
 Parkour.BootState ={
 	init: function(){
 		this.game.stage.backgroundColor = "#fff";
-		this.game.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+		this.game.scaleMode = Phaser.ScaleManager.EXACT_FIT;
+		// this.game.scaleMode = Phaser.ScaleManager.SHOW_ALL;
 		this.scale.pageAlignHorizontally = true;
 		this.scale.pageAlignVertically = true;
 		//initialize the arcade physics system
