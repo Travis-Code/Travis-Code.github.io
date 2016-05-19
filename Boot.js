@@ -10,10 +10,10 @@ Parkour.BootState ={
 		// this.scale.pageAlignVertically = true;
 		//initialize the arcade physics system
 var resizeGame = this._fitScreen = function() {
-    game.scale.pageAlignVertically = true;
-    game.scale.pageAlignHorizontally = true;
-    game.scale.setShowAll();
-    game.scale.refresh();
+    this.scale.pageAlignVertically = true;
+    this.scale.pageAlignHorizontally = true;
+    this.scale.setShowAll();
+    this.scale.refresh();
 };
 
 
