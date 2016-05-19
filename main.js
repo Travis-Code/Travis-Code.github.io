@@ -2,7 +2,7 @@
 var Parkour = Parkour || {};
 
 
-//Parkour.dimensions = Parkour.getGameLandscapeDimensions(700,414);
+Parkour.dimensions = Parkour.getGameLandscapeDimensions(700,414);
 
 //create a new Phaser.Game object and assign it to our custom Parkour.game property.
 // then add our states to the game property.
