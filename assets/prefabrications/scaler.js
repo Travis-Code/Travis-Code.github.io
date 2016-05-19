@@ -7,6 +7,7 @@ Parkour.getGameLandscapeDimensions = function(max_w, max_h) {
   var h = window.innerHeight * window.devicePixelRatio;
   
   //get the actual w and h
+  //Math.max/min return highest/lowest parameter
   var landW = Math.max(w, h);
   var landH = Math.min(w, h);
   
